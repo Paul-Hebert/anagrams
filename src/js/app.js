@@ -11,27 +11,43 @@ reloadButton.addEventListener("click", load);
 
 function load() {
   const word = randomItemFromArray(words);
-  console.log(word);
+  const sortedWord = word.split("").sort().join("");
+  const matches = words.filter((match) => {
+    if (match.length !== word.length) {
+      return false;
+    }
+
+    const sortedMatch = match.split("").sort().join("");
+
+    return sortedWord === sortedMatch;
+  });
   const wordArray = word.split("");
 
   let shuffledLetters = shuffle(wordArray);
 
-  // TODO: infinite loop if there's only one way to sort the letters
-  // (e.g. only one letter)
-  // while (shuffledLetters === wordArray) {
-  //   console.log("whoops, resorting");
-  //   shuffledLetters = shuffle(wordArray);
-  // }
+  // TODO: Confirm the shuffled letters don't match one of the matches
 
   container.innerHTML = shuffledLetters
-    .map((letter) => `<span class="letter">${letter}</span>`)
+    .map(
+      (letter, i) => /* html */ `
+        <span class="letter">
+          <span class="letter-inner">${letter}</span>
+        </span>
+      `
+    )
     .join("");
 
   drake.on("dragend", () => {
-    if (container.textContent === word) {
-      alert("You win!");
+    if (matches.includes(container.textContent.replace(/\s/g, ""))) {
+      container.querySelectorAll(".letter").forEach((letter, i) => {
+        letter.style.setProperty("--index", i);
+      });
+      container.classList.add("is-success");
 
-      load();
+      setTimeout(() => {
+        container.classList.remove("is-success");
+        load();
+      }, 2000);
     }
   });
 }
