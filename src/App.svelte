@@ -25,7 +25,6 @@ function loadLevel() {
 }
 
 function onSort(e) {
-
   const {word} = e.detail;
 
 	if(word === lastWord) return;
@@ -42,15 +41,20 @@ function onSort(e) {
 		if (wordsFound.length === possibleWords.length) {
 			alert("You found all the words! Next level!")
 			loadLevel();
+			return;
 		}
-  } else if (movesLeft === 0) {
+  } 
+	
+	if (movesLeft === 0) {
 		if(wordsFound.length === 0) {
 			alert("You lose!");
 			level = 0;
 			points = 0;
-		} else {
-			alert("You ran out of moves but found words. Next level!")
+			loadLevel();
+			return;
 		}
+
+		alert("You ran out of moves but found words. Next level!")
 		loadLevel();
   }
 }
