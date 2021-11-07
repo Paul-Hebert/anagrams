@@ -21,6 +21,7 @@ function load() {
 
     return sortedWord === sortedMatch;
   });
+
   const wordArray = word.split("");
 
   let shuffledLetters = shuffle(wordArray);

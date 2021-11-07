@@ -1,7 +1,8 @@
 :root {
-  --animation-speed: 0.5s;
+  --animation-speed: 0.2s;
   --color-background: #f0f0f0;
   --color-highlight: hsl(200, 100%, 90%);
+  --letter-size: 4rem;
 }
 
 * {
@@ -38,6 +39,8 @@ button {
 
 .anagram-container {
   display: flex;
+  /* leave space for a letter for the drag and drop */
+  padding: 0 var(--letter-size);
 }
 
 .anagram-container.is-success {
@@ -45,7 +48,7 @@ button {
 }
 
 .anagram-container.is-success .letter-inner {
-  --delay: calc(var(--index) * var(--animation-speed) * 4 / 5);
+  --delay: calc(var(--index) * var(--animation-speed) * 2 / 3);
   background-color: var(--color-highlight);
   animation: success var(--animation-speed) ease-out;
   animation-delay: var(--delay);
@@ -62,7 +65,7 @@ button {
   }
 
   50% {
-    transform: scale(1.2) translateY(-0.5em);
+    transform: scale(1.2) translateY(-0.2em);
     z-index: 1;
   }
 
@@ -80,8 +83,8 @@ button {
   font-family: sans-serif;
   font-size: 1.5em;
   font-weight: bold;
-  width: 3em;
-  height: 3em;
+  width: var(--letter-size);
+  height: var(--letter-size);
   place-items: center;
 }
 
