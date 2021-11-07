@@ -1,3 +1,9 @@
+:root {
+  --animation-speed: 0.5s;
+  --color-background: #f0f0f0;
+  --color-highlight: hsl(200, 100%, 90%);
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -9,7 +15,7 @@ body {
 }
 
 body {
-  background-color: #f0f0f0;
+  background-color: var(--color-background);
   margin: 0;
   margin: 0 auto;
   display: grid;
@@ -32,11 +38,43 @@ button {
 
 .anagram-container {
   display: flex;
-  gap: 0.1em;
 }
 
-.letter {
+.anagram-container.is-success {
+  pointer-events: none;
+}
+
+.anagram-container.is-success .letter-inner {
+  --delay: calc(var(--index) * var(--animation-speed) * 4 / 5);
+  background-color: var(--color-highlight);
+  animation: success var(--animation-speed) ease-out;
+  animation-delay: var(--delay);
+  transition-property: background-color;
+  transition-duration: var(--animation-speed);
+  transition-timing-function: ease-out;
+  transition-delay: var(--delay);
+}
+
+@keyframes success {
+  0% {
+    transform: scale(1) translateY(0);
+    z-index: 0;
+  }
+
+  50% {
+    transform: scale(1.2) translateY(-0.5em);
+    z-index: 1;
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+    z-index: 0;
+  }
+}
+
+.letter-inner {
   background-color: #fff;
+  border: 0.1em solid var(--color-background);
   cursor: grab;
   display: grid;
   font-family: sans-serif;
@@ -47,8 +85,8 @@ button {
   place-items: center;
 }
 
-.letter.gu-mirror {
-  background-color: hsl(200, 100%, 90%);
+.gu-mirror .letter-inner {
+  background-color: var(--color-highlight);
   cursor: grabbing;
   transform: scale(1.1);
 }
