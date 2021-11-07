@@ -1,0 +1,28 @@
+:root {
+  --animation-speed: 0.2s;
+  --color-background: #f0f0f0;
+  --color-highlight: hsl(200, 100%, 90%);
+  --letter-size: 4rem;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-background);
+  margin: 0;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+}
