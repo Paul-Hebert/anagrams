@@ -34,7 +34,7 @@ const topAnagrams = Object.keys(anagrams)
 console.log(Object.keys(topAnagrams).length);
 
 fs.writeFileSync(
-  "./src/js/generated/anagrams.json",
-  JSON.stringify(topAnagrams, null, 2),
+  "./src/js/generated/anagrams.js",
+  `export const anagrams = ${JSON.stringify(topAnagrams, null, 2)}`,
   "utf8"
 );

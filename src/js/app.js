@@ -1,4 +1,6 @@
-import { words } from "./words.js";
+import { anagrams } from "./generated/anagrams.js";
+
+const anagramKeys = Object.keys(anagrams);
 
 const container = document.querySelector(".anagram-container");
 const reloadButton = document.querySelector(".reload");
@@ -7,28 +9,21 @@ const drake = dragula([container]);
 
 load();
 
-reloadButton.addEventListener("click", load);
-
 function load() {
-  const word = randomItemFromArray(words);
-  const sortedWord = word.split("").sort().join("");
-  const matches = words.filter((match) => {
-    if (match.length !== word.length) {
-      return false;
-    }
+  const jumble = randomItemFromArray(anagramKeys);
+  const matches = anagrams[jumble];
+  console.log(jumble, matches);
 
-    const sortedMatch = match.split("").sort().join("");
+  const jumbleArray = jumble.split("");
 
-    return sortedWord === sortedMatch;
-  });
+  let shuffledLetters = shuffle(jumbleArray).join("");
 
-  const wordArray = word.split("");
-
-  let shuffledLetters = shuffle(wordArray);
-
-  // TODO: Confirm the shuffled letters don't match one of the matches
+  while (matches.includes(shuffledLetters)) {
+    shuffledLetters = shuffle(jumbleArray).join("");
+  }
 
   container.innerHTML = shuffledLetters
+    .split("")
     .map(
       (letter, i) => /* html */ `
         <span class="letter">
