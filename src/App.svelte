@@ -10,24 +10,28 @@ let movesLeft = 10;
 let wordsFound = [];
 let possibleWords = [];
 let jumble = '';
-let stuck = true;
+let lastWord = '';
 
 loadLevel();
 
 // Methods
 function loadLevel() {
 	level++;
-	stuck = true;
 	wordsFound = [];
 	movesLeft = 10;
 
-	({jumble, possibleWords} = pickAnagram());
+	({jumble, possibleWords} = pickAnagram(3 + level));
+	lastWord = jumble;
 }
 
 function onSort(e) {
-	movesLeft--;
 
   const {word} = e.detail;
+
+	if(word === lastWord) return;
+	lastWord = word;
+
+	movesLeft--;
   const wordMatches = possibleWords.includes(word);
   const wordAlreadyUsed = wordsFound.includes(word);
 
@@ -35,16 +39,19 @@ function onSort(e) {
     points++;
     wordsFound = [...wordsFound, word];
 
-    stuck = false;
-
 		if (wordsFound.length === possibleWords.length) {
+			alert("You found all the words! Next level!")
 			loadLevel();
 		}
   } else if (movesLeft === 0) {
-    alert("You lose!");
-    level = 0;
-    points = 0;
-    loadLevel();
+		if(wordsFound.length === 0) {
+			alert("You lose!");
+			level = 0;
+			points = 0;
+		} else {
+			alert("You ran out of moves but found words. Next level!")
+		}
+		loadLevel();
   }
 }
 </script>
@@ -55,7 +62,7 @@ function onSort(e) {
 	<Anagram {jumble} on:sort={onSort} />
 
 	<button
-		hidden={stuck}
+		hidden={wordsFound.length === 0}
 		on:click={loadLevel}
 	>
 		Next Level
