@@ -1,14 +1,18 @@
 import { words } from "./words.js";
 
 const container = document.querySelector(".anagram-container");
+const reloadButton = document.querySelector(".reload");
 
-init();
+const drake = dragula([container]);
 
-function init() {
+load();
+
+reloadButton.addEventListener("click", load);
+
+function load() {
   const word = randomItemFromArray(words);
   console.log(word);
   const wordArray = word.split("");
-  console.log(wordArray);
 
   let shuffledLetters = shuffle(wordArray);
 
@@ -19,19 +23,15 @@ function init() {
   //   shuffledLetters = shuffle(wordArray);
   // }
 
-  console.log(shuffledLetters);
-
   container.innerHTML = shuffledLetters
     .map((letter) => `<span class="letter">${letter}</span>`)
     .join("");
 
-  const drake = dragula([container]);
-
   drake.on("dragend", () => {
-    console.log(container.textContent);
-
     if (container.textContent === word) {
       alert("You win!");
+
+      load();
     }
   });
 }
