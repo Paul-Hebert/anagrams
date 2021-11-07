@@ -1,4 +1,5 @@
 <script>
+import Hud from './components/Hud.svelte';
 import { onMount } from "svelte";
 import { randomItemFromArray, shuffle } from "./js/utils.js";
 import Sortable from 'sortablejs';
@@ -81,21 +82,7 @@ function onSort() {
 </script>
 
 <main>
-	<div class="info">
-		<div class="levels">Level <b>{level}</b></div>
-		<div class="points"><b>{points}</b> Points</div>
-		<div class="moves"><b>{movesLeft}</b> moves left</div>
-		<div class="possible-words">
-			Words found:
-			<b>{wordsFound.length}</b>/<b>{possibleWords.length}</b>
-
-			<ul>
-				{#each wordsFound as word}
-					<li>{word}</li>
-				{/each}
-			</ul>
-		</div>
-	</div>
+	<Hud {level} {points} {possibleWords} {wordsFound} {movesLeft} />
 
 	<div class="anagram-container" bind:this={anagramContainer}>
 		{#each letters as letter}
