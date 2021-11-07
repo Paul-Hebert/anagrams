@@ -7,10 +7,10 @@
   const dispatch = createEventDispatcher();
 
   let anagramContainer;
-  let sortable;
+  let success;
 
   onMount(() => {
-    sortable = Sortable.create(
+    Sortable.create(
       anagramContainer, 
       {
         animation: 150,
@@ -23,10 +23,17 @@
       }
     );
   });
+
+  export function showSuccess() {
+    success = true;
+    setTimeout(() => {
+      success = false;
+    }, 500);
+  }
 </script>
 
 <div 
-  class="anagram-container" 
+  class="anagram-container {success ? 'success' : ''}" 
   bind:this={anagramContainer}
   style="--count: {jumble.split('').length}"
 >
@@ -56,8 +63,11 @@
       var(--letter-computed-size), 
       var(--letter-max-size)
     );
-    /* --letter-size: 3rem; */
 	}
+
+  .anagram-container.success .letter-inner {
+    background:hsl(200, 100%, 90%)
+  }
 
   .letter {
     margin: var(--gutter);
@@ -71,7 +81,7 @@
 		font-family: sans-serif;
 		font-size: 1.5em;
 		font-weight: bold;
-    transition-property: opacity, box-shadow;
+    transition-property: opacity, box-shadow, background-color;
     transition-duration: var(--animation-speed);
     transition-timing-function: ease-out;
 		width: var(--letter-size);

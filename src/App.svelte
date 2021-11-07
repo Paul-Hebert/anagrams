@@ -12,6 +12,9 @@ let possibleWords = [];
 let jumble = '';
 let lastWord = '';
 
+// UI
+let anagramContainer;
+
 loadLevel();
 
 // Methods
@@ -37,7 +40,8 @@ function onSort(e) {
   if (wordMatches && !wordAlreadyUsed) {
     points++;
     wordsFound = [...wordsFound, word];
-
+		anagramContainer.showSuccess();
+		
 		if (wordsFound.length === possibleWords.length) {
 			alert("You found all the words! Next level!")
 			loadLevel();
@@ -63,7 +67,7 @@ function onSort(e) {
 <main>
 	<Hud {level} {points} {possibleWords} {wordsFound} {movesLeft} />
 
-	<Anagram {jumble} on:sort={onSort} />
+	<Anagram {jumble} bind:this={anagramContainer} on:sort={onSort} />
 
 	<button
 		hidden={wordsFound.length === 0}
