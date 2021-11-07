@@ -1,10 +1,7 @@
 <script>
 import Hud from './components/Hud.svelte';
-import { onMount } from "svelte";
-import { randomItemFromArray, shuffle } from "./js/utils.js";
-import Sortable from 'sortablejs';
-import { anagrams } from "./js/generated/anagrams.js";
-const anagramKeys = Object.keys(anagrams);
+import Anagram from './components/Anagram.svelte';
+import { pickAnagram } from "./js/pick-anagram.js";
 
 // Game state
 let level = 0;
@@ -12,24 +9,10 @@ let points = 0;
 let movesLeft = 10;
 let wordsFound = [];
 let possibleWords = [];
-let letters = [];
+let jumble = '';
 let stuck = true;
 
-// UI references
-let anagramContainer;
-let sortable;
-
-onMount(() => {
-	sortable = Sortable.create(
-		anagramContainer, 
-		{
-			onEnd: () => {
-				onSort();
-			}
-		}
-	);
-	loadLevel();
-});
+loadLevel();
 
 // Methods
 function loadLevel() {
@@ -38,34 +21,19 @@ function loadLevel() {
 	wordsFound = [];
 	movesLeft = 10;
 
-	let jumble = randomItemFromArray(anagramKeys);
-  possibleWords = anagrams[jumble];
-	console.log(jumble, possibleWords);
-	
-	const jumbleArray = jumble.split("");
-
-  let shuffledLetters = shuffle(jumbleArray).join("");
-
-  while (possibleWords.includes(shuffledLetters)) {
-    shuffledLetters = shuffle(jumbleArray).join("");
-  }
-
-	letters = shuffledLetters.split("");
+	({jumble, possibleWords} = pickAnagram());
 }
 
-function onSort() {
-	console.log('onSort');
+function onSort(e) {
 	movesLeft--;
 
-  const word = anagramContainer.textContent.replace(/\s/g, "");
+  const {word} = e.detail;
   const wordMatches = possibleWords.includes(word);
   const wordAlreadyUsed = wordsFound.includes(word);
 
   if (wordMatches && !wordAlreadyUsed) {
     points++;
     wordsFound = [...wordsFound, word];
-
-		console.log(wordsFound);
 
     stuck = false;
 
@@ -84,18 +52,9 @@ function onSort() {
 <main>
 	<Hud {level} {points} {possibleWords} {wordsFound} {movesLeft} />
 
-	<div class="anagram-container" bind:this={anagramContainer}>
-		{#each letters as letter}
-			<div class="letter">
-				<div class="letter-inner">
-					{letter}
-				</div>
-			</div>
-		{/each}
-	</div>
+	<Anagram {jumble} on:sort={onSort} />
 
-	<button 
-		class="js-next-level" 
+	<button
 		hidden={stuck}
 		on:click={loadLevel}
 	>
@@ -108,26 +67,5 @@ function onSort() {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-	}
-
-	main > * + * {
-		margin-top: 1em;
-	}
-
-	.anagram-container {
-		display: flex;
-	}
-
-	.letter-inner {
-		background-color: #fff;
-		border: 0.1em solid var(--color-background);
-		cursor: grab;
-		display: grid;
-		font-family: sans-serif;
-		font-size: 1.5em;
-		font-weight: bold;
-		width: var(--letter-size);
-		height: var(--letter-size);
-		place-items: center;
 	}
 </style>
