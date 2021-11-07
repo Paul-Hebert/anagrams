@@ -17,14 +17,20 @@
   <body>
     <main>
       <div class="info">
-        <div class="levels">Level <b class="js-current-level">1</b></div>
-        <div class="points"><b class="js-current-points">0</b> Points</div>
-        <div class="moves"><b class="js-current-moves">10</b> moves left</div>
+        <div class="levels">Level <b class="js-current-level"></b></div>
+        <div class="points"><b class="js-current-points"></b> Points</div>
+        <div class="moves"><b class="js-current-moves"></b> moves left</div>
         <div class="possible-words">
-          <b class="js-possible-words">10</b> possible words
+          Words found:
+          <b class="js-found-words-count"></b>/<b class="js-possible-words"></b>
+
+          <br />
+
+          <p class="js-found-words"></p>
         </div>
       </div>
       <div class="anagram-container"></div>
+      <button class="js-next-level" hidden>Next Level</button>
     </main>
   </body>
 </html>
