@@ -1,8 +1,7 @@
 :root {
-  --animation-speed: 0.2s;
+  --animation-speed: 0.15s;
   --color-background: #f0f0f0;
-  --color-highlight: hsl(200, 100%, 90%);
-  --letter-size: 4rem;
+  --app-padding: 1em;
 }
 
 *,
@@ -23,7 +22,7 @@ body {
 body {
   background-color: var(--color-background);
   margin: 0;
-  margin: 0 auto;
+  padding: var(--app-padding);
   display: grid;
   place-items: center;
 }
