@@ -29,7 +29,7 @@ function loadLevel() {
 
 function onSort(e) {
   const {word} = e.detail;
-
+	
 	if(word === lastWord) return;
 	lastWord = word;
 
@@ -51,7 +51,7 @@ function onSort(e) {
 	
 	if (movesLeft === 0) {
 		if(wordsFound.length === 0) {
-			alert("You lose!");
+			alert("You lose! You missed " + possibleWords.filter(w => !wordsFound.includes(w)).join(', '));
 			level = 0;
 			points = 0;
 			loadLevel();
@@ -69,19 +69,13 @@ function onSort(e) {
 
 	<Anagram {jumble} bind:this={anagramContainer} on:sort={onSort} />
 
-	<button
-		hidden={wordsFound.length === 0}
-		on:click={loadLevel}
-	>
-		Next Level
-	</button>
+	<div class="button-wrapper">
+		<button
+			class="button"
+			hidden={wordsFound.length === 0}
+			on:click={loadLevel}
+		>
+			Next Level
+		</button>
+	</div>
 </main>
-
-<style>
-	main {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-</style>

@@ -1,0 +1,190 @@
+@font-face {
+  font-family: Cartridge;
+  src: url("../Cartridge/Cartridge-Regular.woff2") format("woff2"),
+    url("../Cartridge/Cartridge-Regular.woff") format("woff");
+}
+
+:root {
+  --animation-speed: 0.15s;
+  --color-background: hsl(270, 10%, 85%);
+  --color-white: hsl(270, 10%, 97%);
+  --color-accent: hsl(270, 23%, 42%);
+  --color-glow: hsla(270, 100%, 50%, 0.1);
+  --color-offset: hsl(270, 17%, 93%);
+  --app-padding: 2em;
+  --letter-radius: 0.1em;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: Cartridge;
+}
+
+body {
+  background-color: var(--color-background);
+  margin: 0;
+  padding: var(--app-padding);
+  display: grid;
+  place-items: center;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+
+.anagram-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+
+  --gutter: 0.03em;
+  --letter-max-size: 6rem;
+  --letter-min-size: 3rem;
+  --app-width: calc(100vw - var(--app-padding) * 2);
+  --letter-computed-size: calc(
+    var(--app-width) / var(--count) - var(--gutter) * 2
+  );
+  --letter-size: clamp(
+    var(--letter-min-size),
+    var(--letter-computed-size),
+    var(--letter-max-size)
+  );
+}
+
+.anagram-container.success {
+  pointer-events: none;
+}
+
+.anagram-container.success .letter-inner {
+  box-shadow: 0 0 0.05em 0.05em var(--color-glow);
+}
+
+.letter {
+  margin: var(--gutter);
+  border-radius: var(--letter-radius);
+  font-size: var(--letter-size);
+}
+
+.letter-inner {
+  box-shadow: 0 3px 3px 1px hsla(0, 0%, 0%, 0.05);
+
+  background-color: var(--color-white);
+  border-radius: var(--letter-radius);
+  color: var(--color-accent);
+  display: grid;
+  cursor: grab;
+  place-items: center;
+  font-size: 0.7em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition-property: transform, opacity, box-shadow, background-color;
+  transition-duration: var(--animation-speed);
+  transition-timing-function: ease-out;
+  width: var(--letter-size);
+  height: var(--letter-size);
+  user-select: none;
+}
+
+.sortable-ghost .letter-inner {
+  opacity: 0;
+}
+
+.sortable-drag {
+  opacity: 1 !important;
+}
+
+.sortable-drag .letter-inner {
+  animation: pick-up 0.1s ease-out forwards;
+}
+
+@keyframes pick-up {
+  from {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 3px 3px 1px hsla(0, 0%, 0%, 0.05);
+  }
+  to {
+    transform: scale(1.1) rotate(-3deg);
+    box-shadow: 0 3px 3px 1px hsla(0, 0%, 0%, 0.1);
+  }
+}
+
+.possible-words {
+  list-style: none;
+  padding: 0;
+}
+
+.possible-word {
+  display: flex;
+  --letter-size: 2.5rem;
+  --gutter: 0.1rem;
+}
+
+.possible-word .letter {
+  background-color: var(--color-offset);
+}
+
+.possible-word .letter-inner {
+  opacity: 0;
+  transition-property: opacity;
+  background-color: var(--color-accent);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--color-white);
+}
+
+.possible-word.found .letter-inner {
+  opacity: 1;
+}
+
+.possible-word + .possible-word {
+  margin-top: 0.2em;
+}
+
+.button-wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.button {
+  appearance: none;
+  background-color: var(--color-accent);
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  padding: 1em 3em;
+  font-size: 1.5rem;
+  border-radius: 0.2em;
+  transition-property: filter, transform, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  transform: scale(0.95);
+}
+
+.button:hover {
+  filter: brightness(110%) saturate(110%);
+  transform: scale(1) translateY(-0.05em);
+  box-shadow: 0 3px 3px 1px hsla(0, 0%, 0%, 0.1);
+}
+
+.button:active {
+  transform: scale(0.9);
+  filter: brightness(90%) saturate(90%);
+  box-shadow: none;
+}
+
+/* TODO: Focus styles */

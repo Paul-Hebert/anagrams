@@ -12,7 +12,9 @@ export const pickAnagram = (maxLength = 5) => {
 
   jumble = shuffle(jumbleArray).join("");
 
+  // TODO: Sometimes this doesn't work...
   while (possibleWords.includes(jumble)) {
+    console.log("jumble matched word");
     jumble = shuffle(jumbleArray).join("");
   }
 
