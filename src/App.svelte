@@ -1,7 +1,9 @@
 <script>
 import Hud from './components/Hud.svelte';
+import Hint from './components/Hint.svelte';
 import Anagram from './components/Anagram.svelte';
 import { pickAnagram } from "./js/pick-anagram.js";
+import { randomItemFromArray } from "./js/utils.js";
 
 // Game state
 let level = 0;
@@ -11,6 +13,11 @@ let wordsFound = [];
 let possibleWords = [];
 let jumble = '';
 let lastWord = '';
+let hintWord = null;
+
+const missingWords = () => {
+	return possibleWords.filter(word => !wordsFound.includes(word));
+}
 
 // UI
 let anagramContainer;
@@ -22,9 +29,14 @@ function loadLevel() {
 	level++;
 	wordsFound = [];
 	movesLeft = 10;
+	hintWord = null;
 
 	({jumble, possibleWords} = pickAnagram(3 + level));
 	lastWord = jumble;
+}
+
+function showHint() {
+	hintWord = randomItemFromArray(missingWords())
 }
 
 function onSort(e) {
@@ -34,13 +46,18 @@ function onSort(e) {
 	lastWord = word;
 
 	movesLeft--;
-  const wordMatches = possibleWords.includes(word);
-  const wordAlreadyUsed = wordsFound.includes(word);
 
-  if (wordMatches && !wordAlreadyUsed) {
+  const match = possibleWords.find(w => w.name === word);
+  const wordAlreadyUsed = wordsFound.find(w => w.name === word);
+
+  if (match && !wordAlreadyUsed) {
     points++;
-    wordsFound = [...wordsFound, word];
+    wordsFound = [...wordsFound, match];
 		anagramContainer.showSuccess();
+
+		if(match === hintWord) {
+			hintWord = null;
+		}
 		
 		if (wordsFound.length === possibleWords.length) {
 			alert("You found all the words! Next level!")
@@ -51,7 +68,8 @@ function onSort(e) {
 	
 	if (movesLeft === 0) {
 		if(wordsFound.length === 0) {
-			alert("You lose! You missed " + possibleWords.filter(w => !wordsFound.includes(w)).join(', '));
+			const missedWords = missingWords().map(w => w.name).join(', ');
+			alert("You lose! You missed " + missedWords);
 			level = 0;
 			points = 0;
 			loadLevel();
@@ -67,15 +85,29 @@ function onSort(e) {
 <main>
 	<Hud {level} {points} {possibleWords} {wordsFound} {movesLeft} />
 
+	<div class="hint-wrapper">
+		{#if hintWord }
+			<Hint meanings={hintWord.meanings} />
+		{/if}
+	</div>
+
 	<Anagram {jumble} bind:this={anagramContainer} on:sort={onSort} />
 
 	<div class="button-wrapper">
-		<button
-			class="button"
-			hidden={wordsFound.length === 0}
-			on:click={loadLevel}
-		>
-			Next Level
-		</button>
+		{#if wordsFound.length > 0}
+			<button
+				class="button"
+				on:click={loadLevel}
+			>
+				Next Level
+			</button>
+		{:else if !hintWord}
+			<button
+				class="button"
+				on:click={showHint}
+			>
+				Show Hint
+			</button>
+		{/if}
 	</div>
 </main>
