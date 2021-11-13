@@ -2,8 +2,6 @@ const fs = require("fs");
 const mergeLetters = require("./utils/merge-letters.js");
 const findAnagrams = require("./utils/find-anagrams.js");
 
-console.log(process.cwd());
-
 /**
  * Settings
  */
