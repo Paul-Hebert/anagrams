@@ -3,3 +3,5 @@
 
 .DS_Store
 /src/js/generated/*.js
+/generator/old-sets
+/generator/intermediary-steps
