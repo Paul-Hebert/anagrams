@@ -19,3 +19,7 @@ This game is a work-in-progress.
 - Finalized design and type choices
 - Consistent CSS organization
 - Home Screen
+
+### Bugs
+
+- Starting jumble is sometimes a match

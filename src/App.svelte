@@ -1,5 +1,5 @@
 <script>
-import WordsFound from './components/WordsFound.svelte';
+import PossibleWords from './components/PossibleWords.svelte';
 import Hint from './components/Hint.svelte';
 import Anagram from './components/Anagram.svelte';
 import { pickAnagram } from "./js/pick-anagram.js";
@@ -114,8 +114,8 @@ function onSort(e) {
 		<div><b>{points}</b> Points</div>
 	</div>
 
-	<div class="words-found">
-		<WordsFound {possibleWords} {wordsFound}/>
+	<div class="possible-words">
+		<PossibleWords {possibleWords} {wordsFound}/>
 	</div>
 
 	<div class="hint">
@@ -176,7 +176,7 @@ function onSort(e) {
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr 1fr var(--letter-size) 1fr 1fr;
 		grid-template-areas:
-			"level-points  words-found"
+			"level-points  possible-words"
 			"hint          hint"
 			"anagram       anagram"
 			"status        status"
@@ -197,8 +197,8 @@ function onSort(e) {
 		place-items: center;
 	}
 
-	.words-found {
-		grid-area: words-found;
+	.possible-words {
+		grid-area: possible-words;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
