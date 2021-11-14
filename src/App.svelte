@@ -13,8 +13,10 @@ let hints = 0;
 let wordsFound = [];
 let possibleWords = [];
 let jumble = '';
+let key = '';
 let lastWord = '';
 let hintWord = null;
+let wordsUsed = [];
 
 const missingWords = () => {
 	return possibleWords.filter(word => !wordsFound.includes(word));
@@ -31,16 +33,17 @@ function loadLevel() {
 	wordsFound = [];
 	hintWord = null;
 
-	// TODO: Exclude already used anagrams
-	({jumble, possibleWords} = pickAnagram(3 + level));
+	({jumble, possibleWords, key} = pickAnagram(3 + level, wordsUsed));
 	lastWord = jumble;
+	wordsUsed = [key, ...wordsUsed]
 }
 
 function newGame() {
 	level = 0;
 	points = 0;
-	movesLeft = 10;
+	movesLeft = 5;
 	hints = 1;
+	wordsUsed = [];
 	loadLevel();
 }
 
@@ -62,7 +65,7 @@ function onSort(e) {
 
   if (match && !wordAlreadyUsed) {
     points++;
-		movesLeft += word.length;
+		movesLeft += 3;
     wordsFound = [...wordsFound, match];
 		anagramContainer.showSuccess();
 
@@ -106,8 +109,7 @@ function onSort(e) {
 				Show Hint
 			</button>
 		{/if}
-	</div>
-	<div class="button-wrapper">
+		
 		{#if wordsFound.length > 0}
 			<button
 				class="button"
