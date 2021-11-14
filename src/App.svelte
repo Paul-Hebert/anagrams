@@ -15,7 +15,7 @@ let possibleWords = [];
 let jumble = '';
 let key = '';
 let lastWord = '';
-let hintWord = null;
+let hint = null;
 let jumblesUsed = [];
 let status = null;
 let failure = false;
@@ -34,7 +34,7 @@ newGame();
 function loadLevel() {
 	level++;
 	wordsFound = [];
-	hintWord = null;
+	hint = null;
 	status = null;
 	failure = false;
 	success = false;
@@ -55,7 +55,9 @@ function newGame() {
 
 function useHint() {
 	hints--;
-	hintWord = randomItemFromArray(missingWords())
+	const hintWord = randomItemFromArray(missingWords());
+	hint = randomItemFromArray(hintWord.meanings);
+	console.log(hint);
 }
 
 function onSort(e) {
@@ -78,15 +80,15 @@ function onSort(e) {
     wordsFound = [...wordsFound, match];
 		success = true;
 
-		if(match === hintWord) {
-			hintWord = null;
-			status = 'You found the hint: ${word}';
+		if(match === hint) {
+			hint = null;
+			status = `You found the hint: ${word}`;
 		} else {
 			status = `You found a word: ${word}`
 		}
 		
 		if (wordsFound.length === possibleWords.length) {
-			status = "You found all the words!";
+			status = "You found all the words and unlocked a hint!";
 			hints++;
 			return;
 		}
@@ -117,8 +119,8 @@ function onSort(e) {
 	</div>
 
 	<div class="hint">
-		{#if hintWord }
-			<Hint meanings={hintWord.meanings} />
+		{#if hint }
+			<Hint {hint} />
 		{/if}
 	</div>
 
@@ -151,16 +153,15 @@ function onSort(e) {
 	</div>
 	
 	<div class="hint-count">
-		<p><b>{hints}</b> hints available</p>
-
 		{#if hints > 0}
 			<button
 				class="button button--inline"
 				on:click={useHint}
 			>
-				Use
+				Use Hint
 			</button>
 		{/if}
+		<p><b>{hints}</b> hints available</p>
 	</div>
 
 	<div class="moves-left">
@@ -211,7 +212,9 @@ function onSort(e) {
 	.hint-count {
 		grid-area: hint-count;
 		display: flex;
-		align-items: flex-end;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: flex-start;
 	}
 
 	.status {

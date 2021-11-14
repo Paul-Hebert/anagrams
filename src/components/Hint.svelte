@@ -1,9 +1,7 @@
 <script>
-export let meanings;
+export let hint;
 </script>
 
-<dl>
-  <dt>Definition</dt>
-  <!-- TODO: randomize definition, potentially use synonyms, part of speech -->
-  <dd>{meanings[0].definition}</dd>
-</dl>
+<p>
+  <em>{hint.speechPart}</em>, {hint.definition}
+</p>
