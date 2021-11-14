@@ -1,23 +1,26 @@
 import { randomItemFromArray, shuffle } from "./utils.js";
 import { anagrams } from "./generated/anagrams.js";
-const anagramKeys = Object.keys(anagrams);
+const keys = Object.keys(anagrams);
 
-export const pickAnagram = (maxLength = 5) => {
-  const possibleAnagrams = anagramKeys.filter((key) => key.length <= maxLength);
+export const pickAnagram = (maxLength = 5, wordsUsed) => {
+  const possibleAnagrams = keys.filter(
+    (key) => key.length <= maxLength && !wordsUsed.includes(key)
+  );
 
-  const anagramKey = randomItemFromArray(possibleAnagrams);
-  const possibleWords = anagrams[anagramKey];
+  const key = randomItemFromArray(possibleAnagrams);
+  const possibleWords = anagrams[key];
+  const possibleWordNames = possibleWords.map((word) => word.name);
 
-  const anagramKeyLetters = anagramKey.split("");
-  let jumble = shuffle(anagramKeyLetters).join("");
+  const keyLetters = key.split("");
+  let jumble = shuffle(keyLetters).join("");
 
-  // TODO: Sometimes this doesn't work...
-  // while (possibleWords.includes(jumble)) {
-  // console.log("jumble matched word");
-  // jumble = shuffle(anagramKeyLetters).join("");
-  // }
+  // TODO: Confirm this works right
+  while (possibleWordNames.includes(jumble)) {
+    jumble = shuffle(keyLetters).join("");
+  }
 
   return {
+    key,
     jumble,
     possibleWords,
   };
