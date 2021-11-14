@@ -70,7 +70,8 @@ body {
 }
 
 .anagram-container.failure .letter-inner {
-  box-shadow: 0 0 0.05em 0.05em hsla(0, 100%, 50%, 0.3);
+  filter: grayscale(100%) brightness(50%);
+  opacity: 0.5;
 }
 
 .letter {
@@ -91,7 +92,7 @@ body {
   font-size: 0.7em;
   line-height: 1;
   text-transform: uppercase;
-  transition-property: transform, opacity, box-shadow, background-color;
+  transition-property: transform, opacity, box-shadow, background-color, filter;
   transition-duration: var(--animation-speed);
   transition-timing-function: ease-out;
   width: var(--letter-size);
