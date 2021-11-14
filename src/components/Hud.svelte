@@ -4,6 +4,7 @@ export let points;
 export let movesLeft;
 export let wordsFound;
 export let possibleWords;
+export let hints;
 </script>
 
 <div class="hud">
@@ -11,6 +12,7 @@ export let possibleWords;
     <div class="levels">Level <b>{level}</b></div>
     <div class="points"><b>{points}</b> Points</div>
     <div class="moves"><b>{movesLeft}</b> moves left</div>
+    <div class="hints"><b>{hints}</b> hints available</div>
   </div>
 
   <div class="possible-words">

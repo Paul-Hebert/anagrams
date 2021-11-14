@@ -8,7 +8,8 @@ import { randomItemFromArray } from "./js/utils.js";
 // Game state
 let level = 0;
 let points = 0;
-let movesLeft = 10;
+let movesLeft = 0;
+let hints = 0;
 let wordsFound = [];
 let possibleWords = [];
 let jumble = '';
@@ -22,20 +23,29 @@ const missingWords = () => {
 // UI
 let anagramContainer;
 
-loadLevel();
+newGame();
 
 // Methods
 function loadLevel() {
 	level++;
 	wordsFound = [];
-	movesLeft = 10;
 	hintWord = null;
 
+	// TODO: Exclude already used anagrams
 	({jumble, possibleWords} = pickAnagram(3 + level));
 	lastWord = jumble;
 }
 
-function showHint() {
+function newGame() {
+	level = 0;
+	points = 0;
+	movesLeft = 10;
+	hints = 1;
+	loadLevel();
+}
+
+function useHint() {
+	hints--;
 	hintWord = randomItemFromArray(missingWords())
 }
 
@@ -52,6 +62,7 @@ function onSort(e) {
 
   if (match && !wordAlreadyUsed) {
     points++;
+		movesLeft += word.length;
     wordsFound = [...wordsFound, match];
 		anagramContainer.showSuccess();
 
@@ -60,30 +71,23 @@ function onSort(e) {
 		}
 		
 		if (wordsFound.length === possibleWords.length) {
-			alert("You found all the words! Next level!")
+			alert("You found all the words! Next level!");
+			hints++;
 			loadLevel();
 			return;
 		}
   } 
 	
 	if (movesLeft === 0) {
-		if(wordsFound.length === 0) {
-			const missedWords = missingWords().map(w => w.name).join(', ');
-			alert("You lose! You missed " + missedWords);
-			level = 0;
-			points = 0;
-			loadLevel();
-			return;
-		}
-
-		alert("You ran out of moves but found words. Next level!")
-		loadLevel();
+		const missedWords = missingWords().map(w => w.name).join(', ');
+		alert("You lose! You missed " + missedWords);
+		newGame();
   }
 }
 </script>
 
 <main>
-	<Hud {level} {points} {possibleWords} {wordsFound} {movesLeft} />
+<Hud {level} {points} {possibleWords} {wordsFound} {movesLeft} {hints}/>
 
 	<div class="hint-wrapper">
 		{#if hintWord }
@@ -94,19 +98,22 @@ function onSort(e) {
 	<Anagram {jumble} bind:this={anagramContainer} on:sort={onSort} />
 
 	<div class="button-wrapper">
+		{#if hints > 0}
+			<button
+				class="button"
+				on:click={useHint}
+			>
+				Show Hint
+			</button>
+		{/if}
+	</div>
+	<div class="button-wrapper">
 		{#if wordsFound.length > 0}
 			<button
 				class="button"
 				on:click={loadLevel}
 			>
 				Next Level
-			</button>
-		{:else if !hintWord}
-			<button
-				class="button"
-				on:click={showHint}
-			>
-				Show Hint
 			</button>
 		{/if}
 	</div>
