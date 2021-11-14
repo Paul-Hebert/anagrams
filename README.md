@@ -19,7 +19,11 @@ This game is a work-in-progress.
 - Finalized design and type choices
 - Consistent CSS organization
 - Home Screen
+- Improve UI grammar (singular/plural, including "and" in lists of words)
+- Remove slurs and other offensive words from word set
 
 ### Bugs
 
 - Starting jumble is sometimes a match
+- Finding a hint word doesn't hide the hint
+- Responsive font sizing is not working correctly

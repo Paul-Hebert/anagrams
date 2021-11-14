@@ -80,6 +80,7 @@ function onSort(e) {
     wordsFound = [...wordsFound, match];
 		success = true;
 
+		// TODO: This isn't working
 		if(match === hint) {
 			hint = null;
 			status = `You found the hint: ${word}`;
