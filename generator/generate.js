@@ -30,7 +30,7 @@ console.log(`${wordsLength} words merged and written to all-words.json`);
  */
 console.log(`Finding anagrams.`);
 
-const anagrams = findAnagrams(dictionary);
+const anagrams = findAnagrams(dictionary, minLength);
 
 fs.writeFileSync(
   "./generator/intermediary-steps/anagrams.json",
@@ -46,23 +46,58 @@ console.log(
 /**
  * Filter down our anagrams to find a higher quality set of matches
  */
-console.log(`Filtering anagrams.`);
+console.log(`Filtering anagrams by number of matches.`);
 
-const topAnagrams = Object.keys(anagrams)
+const filteredAnagrams = Object.keys(anagrams)
   .filter((key) => anagrams[key].length >= minMatches)
   .reduce((cur, key) => {
     return Object.assign(cur, { [key]: anagrams[key] });
   }, {});
 
 fs.writeFileSync(
-  "./generator/intermediary-steps/top-anagrams.json",
+  "./generator/intermediary-steps/filtered-anagrams-1.json",
+  JSON.stringify(filteredAnagrams, null, 2),
+  "utf8"
+);
+
+const filteredAnagramsLength = Object.keys(filteredAnagrams).length;
+console.log(
+  `Filtered down to ${filteredAnagramsLength} sets and written to filtered-anagrams-1.json`
+);
+
+/**
+ * Filter down our anagrams by checking for common words
+ */
+console.log(`Filtering anagrams by checking they contain common words.`);
+
+const commonWords = JSON.parse(
+  fs.readFileSync(`./generator/wordset-data/common-words.json`, "utf8")
+);
+
+const topAnagrams = Object.keys(filteredAnagrams)
+  .filter((key) => {
+    const anagram = filteredAnagrams[key];
+    let isCommon = false;
+    anagram.forEach((word) => {
+      if (commonWords.includes(word.name)) {
+        isCommon = true;
+      }
+    });
+    return isCommon;
+  })
+  .reduce((cur, key) => {
+    return Object.assign(cur, { [key]: filteredAnagrams[key] });
+  }, {});
+
+fs.writeFileSync(
+  "./generator/intermediary-steps/filtered-anagrams-2.json",
   JSON.stringify(topAnagrams, null, 2),
   "utf8"
 );
 
 const topAnagramsLength = Object.keys(topAnagrams).length;
 console.log(
-  `Filtered down to ${topAnagramsLength} sets and written to top-anagrams.json`
+  `Filtered down to ${topAnagramsLength} sets and written to filtered-anagrams-2.json`
 );
 
 /**

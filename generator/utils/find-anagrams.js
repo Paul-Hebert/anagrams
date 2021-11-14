@@ -1,5 +1,7 @@
-module.exports = (dictionary) => {
-  let words = Object.keys(dictionary).filter((word) => word.length > 2);
+module.exports = (dictionary, minLength) => {
+  let words = Object.keys(dictionary).filter(
+    (word) => word.length >= minLength
+  );
 
   const anagrams = {};
 
