@@ -1,5 +1,7 @@
 <script>
   export let jumble;
+  export let success;
+  export let failure;
 
   import { onMount, createEventDispatcher } from "svelte";
   import Sortable from 'sortablejs';
@@ -7,7 +9,6 @@
   const dispatch = createEventDispatcher();
 
   let anagramContainer;
-  let success;
 
   onMount(() => {
     Sortable.create(
@@ -23,17 +24,10 @@
       }
     );
   });
-
-  export function showSuccess() {
-    success = true;
-    setTimeout(() => {
-      success = false;
-    }, 500);
-  }
 </script>
 
 <div 
-  class="anagram-container {success ? 'success' : ''}" 
+  class="anagram-container {success ? 'success' : ''} {failure ? 'failure' : ''}" 
   bind:this={anagramContainer}
   style="--count: {jumble.split('').length}"
 >

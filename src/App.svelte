@@ -1,5 +1,5 @@
 <script>
-import Hud from './components/Hud.svelte';
+import WordsFound from './components/WordsFound.svelte';
 import Hint from './components/Hint.svelte';
 import Anagram from './components/Anagram.svelte';
 import { pickAnagram } from "./js/pick-anagram.js";
@@ -16,7 +16,10 @@ let jumble = '';
 let key = '';
 let lastWord = '';
 let hintWord = null;
-let wordsUsed = [];
+let jumblesUsed = [];
+let status = null;
+let failure = false;
+let success = false;
 
 const missingWords = () => {
 	return possibleWords.filter(word => !wordsFound.includes(word));
@@ -32,10 +35,13 @@ function loadLevel() {
 	level++;
 	wordsFound = [];
 	hintWord = null;
+	status = null;
+	failure = false;
+	success = false;
 
-	({jumble, possibleWords, key} = pickAnagram(3 + level, wordsUsed));
+	({jumble, possibleWords, key} = pickAnagram(3 + level, jumblesUsed));
 	lastWord = jumble;
-	wordsUsed = [key, ...wordsUsed]
+	jumblesUsed = [key, ...jumblesUsed]
 }
 
 function newGame() {
@@ -43,7 +49,7 @@ function newGame() {
 	points = 0;
 	movesLeft = 5;
 	hints = 1;
-	wordsUsed = [];
+	jumblesUsed = [];
 	loadLevel();
 }
 
@@ -63,54 +69,78 @@ function onSort(e) {
   const match = possibleWords.find(w => w.name === word);
   const wordAlreadyUsed = wordsFound.find(w => w.name === word);
 
-  if (match && !wordAlreadyUsed) {
+	if(wordAlreadyUsed) {
+		status = 'You already found this word!';
+		return;
+	} else if (match) {
     points++;
 		movesLeft += 3;
     wordsFound = [...wordsFound, match];
-		anagramContainer.showSuccess();
+		success = true;
 
 		if(match === hintWord) {
 			hintWord = null;
+			status = 'You found the hint: ${word}';
+		} else {
+			status = `You found a word: ${word}`
 		}
 		
 		if (wordsFound.length === possibleWords.length) {
-			alert("You found all the words! Next level!");
+			status = "You found all the words!";
 			hints++;
-			loadLevel();
 			return;
 		}
+
+		setTimeout(() => { success = false }, 500);
+		return;
   } 
 	
 	if (movesLeft === 0) {
 		const missedWords = missingWords().map(w => w.name).join(', ');
-		alert("You lose! You missed " + missedWords);
-		newGame();
+	  status = `You lose! You missed ${missedWords}`;
+		failure = true;
+		return;
   }
+
+	status = null;
 }
 </script>
 
 <main>
-<Hud {level} {points} {possibleWords} {wordsFound} {movesLeft} {hints}/>
+	<div class="level-points">
+		<div>Level <b>{level}</b></div>
+		<div><b>{points}</b> Points</div>
+	</div>
 
-	<div class="hint-wrapper">
+	<div class="words-found">
+		<WordsFound {possibleWords} {wordsFound}/>
+	</div>
+
+	<div class="hint">
 		{#if hintWord }
 			<Hint meanings={hintWord.meanings} />
 		{/if}
 	</div>
 
-	<Anagram {jumble} bind:this={anagramContainer} on:sort={onSort} />
+	<div class="anagram">
+		<Anagram {jumble} {success} {failure} bind:this={anagramContainer} on:sort={onSort} />
+	</div>
 
-	<div class="button-wrapper">
-		{#if hints > 0}
+	<div class="status">
+		{#if status}
+			<p>{status}</p>
+		{/if}
+	</div>
+
+	<div class="action">
+		{#if failure}
 			<button
 				class="button"
-				on:click={useHint}
+				on:click={newGame}
 			>
-				Show Hint
+				New Game
 			</button>
-		{/if}
-		
-		{#if wordsFound.length > 0}
+		{:else if wordsFound.length > 0}
 			<button
 				class="button"
 				on:click={loadLevel}
@@ -119,4 +149,89 @@ function onSort(e) {
 			</button>
 		{/if}
 	</div>
+	
+	<div class="hint-count">
+		<p><b>{hints}</b> hints available</p>
+
+		{#if hints > 0}
+			<button
+				class="button button--inline"
+				on:click={useHint}
+			>
+				Use
+			</button>
+		{/if}
+	</div>
+
+	<div class="moves-left">
+		<p><b>{movesLeft}</b> moves left</p>
+	</div>
 </main>
+
+<style>
+	main {
+		display: grid;
+		gap: 1em;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr var(--letter-size) 1fr 1fr;
+		grid-template-areas:
+			"level-points  words-found"
+			"hint          hint"
+			"anagram       anagram"
+			"status        status"
+			"action        action"
+			"hint-count    moves-left";
+		width: 100%;
+		height: 100%;
+	}
+
+	.level-points {
+		grid-area: level-points;
+	}
+
+	.hint {
+		grid-area: hint;
+		display: grid;
+		place-items: center;
+	}
+
+	.words-found {
+		grid-area: words-found;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	.anagram {
+		display: grid;
+		place-items: center;
+		grid-area: anagram;
+	}
+
+	.hint-count {
+		grid-area: hint-count;
+		display: flex;
+		align-items: flex-end;
+	}
+
+	.status {
+		grid-area: status;
+		display: flex;
+		justify-content: center;
+		align-items: start;
+	}
+
+	.action {
+		grid-area: action;
+		display: flex;
+		justify-content: center;
+		align-items: start;
+	}
+
+	.moves-left {
+		grid-area: moves-left;
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+	}
+</style>

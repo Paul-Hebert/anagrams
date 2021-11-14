@@ -19,6 +19,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
 }
 
 [hidden] {
@@ -37,13 +38,6 @@ body {
   padding: var(--app-padding);
   display: grid;
   place-items: center;
-}
-
-main {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  width: 100%;
-  height: 100%;
 }
 
 .anagram-container {
@@ -66,12 +60,17 @@ main {
   );
 }
 
-.anagram-container.success {
+.anagram-container.success,
+.anagram-container.failure {
   pointer-events: none;
 }
 
 .anagram-container.success .letter-inner {
   box-shadow: 0 0 0.05em 0.05em var(--color-glow);
+}
+
+.anagram-container.failure .letter-inner {
+  box-shadow: 0 0 0.05em 0.05em hsla(0, 100%, 50%, 0.3);
 }
 
 .letter {
@@ -168,7 +167,7 @@ main {
   cursor: pointer;
   padding: 1em 3em;
   font-size: 1.5rem;
-  border-radius: 0.2em;
+  border-radius: 99rem;
   transition-property: filter, transform, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: ease-out;
@@ -185,6 +184,11 @@ main {
   transform: scale(0.9);
   filter: brightness(90%) saturate(90%);
   box-shadow: none;
+}
+
+.button--inline {
+  font-size: 1rem;
+  padding: 0.33em 1em;
 }
 
 /* TODO: Focus styles */
