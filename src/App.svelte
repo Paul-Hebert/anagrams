@@ -172,7 +172,7 @@ function onSort(e) {
 <style>
 	main {
 		display: grid;
-		gap: 1em;
+		gap: 1rem;
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr 1fr var(--letter-size) 1fr 1fr;
 		grid-template-areas:
@@ -182,6 +182,7 @@ function onSort(e) {
 			"status        status"
 			"action        action"
 			"hint-count    moves-left";
+		font-size: 1.5em;
 		width: 100%;
 		height: 100%;
 	}
