@@ -154,7 +154,7 @@ function onSort(e) {
 	</div>
 	
 	<div class="hint-count">
-		{#if hints > 0}
+ 		{#if hints > 0}
 			<button
 				class="button button--inline"
 				on:click={useHint}
@@ -162,6 +162,7 @@ function onSort(e) {
 				Use Hint
 			</button>
 		{/if}
+
 		<p><b>{hints}</b> hints available</p>
 	</div>
 
@@ -173,7 +174,7 @@ function onSort(e) {
 <style>
 	main {
 		display: grid;
-		gap: 1rem;
+		gap: 1vw;
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr 1fr var(--letter-size) 1fr 1fr;
 		grid-template-areas:
@@ -182,7 +183,7 @@ function onSort(e) {
 			"anagram       anagram"
 			"status        status"
 			"action        action"
-			"hint-count    moves-left";
+			"moves-left    hint-count";
 		width: 100%;
 		height: 100%;
 	}
@@ -215,7 +216,7 @@ function onSort(e) {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-		align-items: flex-start;
+		align-items: flex-end;
 	}
 
 	.status {
@@ -236,6 +237,6 @@ function onSort(e) {
 		grid-area: moves-left;
 		display: flex;
 		align-items: flex-end;
-		justify-content: flex-end;
+		justify-content: flex-start;
 	}
 </style>

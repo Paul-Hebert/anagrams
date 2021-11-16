@@ -4,7 +4,7 @@
   export let failure;
 
   import { onMount, createEventDispatcher } from "svelte";
-  import Sortable from 'sortablejs';
+  import Sortable from 'sortablejs/modular/sortable.core.esm.js';
 
   const dispatch = createEventDispatcher();
 

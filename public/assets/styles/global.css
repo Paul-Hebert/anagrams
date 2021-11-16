@@ -11,7 +11,7 @@
   --color-accent: hsl(270, 23%, 42%);
   --color-glow: hsla(270, 100%, 50%, 0.1);
   --color-offset: hsl(270, 17%, 93%);
-  --app-padding: 2em;
+  --app-padding: 3vw;
   --letter-radius: 0.1em;
 }
 
@@ -52,10 +52,10 @@ body {
 
   --gutter: 0.03em;
   --letter-max-size: 4.5rem;
-  --letter-min-size: 3rem;
+  --letter-min-size: 2rem;
   --app-width: calc(100vw - var(--app-padding) * 2);
   --letter-computed-size: calc(
-    var(--app-width) / var(--count) - var(--gutter) * 2
+    var(--app-width) / var(--count) - var(--gutter) * 3
   );
   --letter-size: clamp(
     var(--letter-min-size),

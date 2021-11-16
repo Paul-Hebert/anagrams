@@ -10,14 +10,12 @@
 
 <ol>
   {#each possibleWords as word}
-    <li>
-      <span class="possible-word {wordsFound.includes(word) ? 'found' : ''}">
-        {#each word.name.split("") as letter}
-          <span class="letter">
-            <span class="letter-inner">{letter}</span>
-          </span>
-        {/each}
-      </span>
+    <li class="possible-word {wordsFound.includes(word) ? 'found' : ''}">
+      {#each word.name.split("") as letter}
+        <span class="letter">
+          <span class="letter-inner">{letter}</span>
+        </span>
+      {/each}
     </li>
   {/each}
 </ol>
@@ -25,7 +23,7 @@
 <style>
   .possible-word {
     display: flex;
-    --letter-size: 2rem;
+    --letter-size: 1.5rem;
     --gutter: 0.1rem;
   }
 
@@ -38,6 +36,7 @@
     transition-property: opacity;
     background-color: var(--color-accent);
     font-weight: 400;
+    font-size: 1em;
     color: var(--color-white);
   }
 
