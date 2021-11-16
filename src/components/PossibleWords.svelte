@@ -25,7 +25,7 @@
 <style>
   .possible-word {
     display: flex;
-    --letter-size: 2.5rem;
+    --letter-size: 2rem;
     --gutter: 0.1rem;
   }
 
@@ -38,7 +38,6 @@
     transition-property: opacity;
     background-color: var(--color-accent);
     font-weight: 400;
-    font-size: 1.5rem;
     color: var(--color-white);
   }
 
