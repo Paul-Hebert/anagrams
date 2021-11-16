@@ -16,6 +16,7 @@ This game is a work-in-progress.
 - Performance improvements (lazy load jumbles)
 - PWA features (and getting in the app stores)
 - Logo/icons
+- Real Domain
 - Finalized design and type choices
 - Consistent CSS organization
 - Home Screen
