@@ -99,8 +99,8 @@ function onSort(e) {
   } 
 	
 	if (movesLeft === 0) {
-		const missedWords = missingWords().map(w => w.name).join(', ');
-	  status = `You lose! You missed ${missedWords}`;
+		const missedWords = missingWords().map(w => `&ldquo;${w.name}&rdquo;`).join(', ');
+	  status = `You lose! You missed ${missedWords}.`;
 		failure = true;
 		return;
   }
@@ -131,7 +131,7 @@ function onSort(e) {
 
 	<div class="status">
 		{#if status}
-			<p>{status}</p>
+			<p>{@html status}</p>
 		{/if}
 	</div>
 
