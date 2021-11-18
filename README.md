@@ -22,6 +22,7 @@ This game is a work-in-progress.
 - Home Screen
 - Improve UI grammar (singular/plural, including "and" in lists of words)
 - Remove slurs and other offensive words from word set
+- Plurals!
 
 ### Bugs
 
