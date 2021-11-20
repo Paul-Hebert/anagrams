@@ -5,7 +5,6 @@
 
 <p>
   Words found:
-  <b>{wordsFound.length}</b>/<b>{possibleWords.length}</b>
 </p>
 
 <ol>
@@ -38,10 +37,12 @@
     font-weight: 400;
     font-size: 1em;
     color: var(--color-white);
+    visibility: hidden;
   }
 
   .possible-word.found .letter-inner {
     opacity: 1;
+    visibility: visible;
   }
 
   .possible-word + .possible-word {
