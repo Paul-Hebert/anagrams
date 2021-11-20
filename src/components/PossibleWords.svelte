@@ -20,6 +20,11 @@
 </ol>
 
 <style>
+  ol {
+    list-style: none;
+    padding: 0;
+  }
+  
   .possible-word {
     display: flex;
     --letter-size: 1.5rem;

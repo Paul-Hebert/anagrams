@@ -27,14 +27,14 @@
   }
 
   .stat__label {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   .stat__count {
-    margin-bottom: 0.2em;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
   }
 </style>

@@ -112,13 +112,13 @@ function onSort(e) {
 
 <main>
 	<div class="top-ui">
+		<div class="possible-words">
+			<PossibleWords {possibleWords} {wordsFound}/>
+		</div>
+
 		<div class="level-points">
 			<Stat label="Level" value={level} />
 			<Stat label="Points" value={points} />
-		</div>
-
-		<div class="possible-words">
-			<PossibleWords {possibleWords} {wordsFound}/>
 		</div>
 	</div>
 
@@ -210,21 +210,21 @@ function onSort(e) {
 	.level-points {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: start;
+		justify-content: flex-end;
 		gap: 0.5em;
-	}
-
-	.hint {
-		grid-area: hint;
-		display: grid;
-		place-items: center;
 	}
 
 	.possible-words {
 		grid-area: possible-words;
 		display: flex;
 		flex-direction: column;
-		align-items: flex-end;
+		justify-content: flex-start;
+	}
+
+	.hint {
+		grid-area: hint;
+		display: grid;
+		place-items: center;
 	}
 
 	.jumble {

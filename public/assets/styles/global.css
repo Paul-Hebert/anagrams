@@ -1,10 +1,7 @@
-@font-face {
-  font-family: Cartridge;
-  src: url("../Cartridge/Cartridge-Regular.woff2") format("woff2"),
-    url("../Cartridge/Cartridge-Regular.woff") format("woff");
-}
-
 :root {
+  --font-body: "Source Sans Pro", sans-serif;
+  --font-display: "Playfair Display", serif;
+
   --animation-speed: 0.15s;
   --color-background: hsl(270, 10%, 85%);
   --color-white: hsl(270, 10%, 97%);
@@ -21,6 +18,7 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
+  line-height: 1.4;
 }
 
 [hidden] {
@@ -34,7 +32,8 @@ html {
 html,
 body {
   height: 100%;
-  font-family: Cartridge;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -42,6 +41,7 @@ body {
   margin: 0;
   display: grid;
   place-items: center;
+  font-family: var(--font-body);
 }
 
 .anagram-container {
@@ -96,6 +96,7 @@ body {
   cursor: grab;
   place-items: center;
   font-size: 0.7em;
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
   transition-property: transform, opacity, box-shadow, background-color, filter;
@@ -141,6 +142,7 @@ body {
   color: var(--color-white);
   cursor: pointer;
   padding: 0.5em 1.5em;
+  font-family: inherit;
   font-size: 1.2rem;
   border-radius: 99rem;
   transition-property: filter, transform, box-shadow;
