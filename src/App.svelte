@@ -4,7 +4,8 @@ import Hint from './components/Hint.svelte';
 import Anagram from './components/Anagram.svelte';
 import Stat from './components/Stat.svelte';
 import { pickAnagram } from "./js/pick-anagram.js";
-import { randomItemFromArray } from "./js/utils.js";
+import { onMount } from 'svelte';
+import { randomItemFromArray, initVHCalculator } from "./js/utils.js";
 
 // Game state
 let level = 0;
@@ -29,7 +30,11 @@ const missingWords = () => {
 // UI
 let anagramContainer;
 
-newGame();
+onMount(async () => {
+	initVHCalculator();
+
+	newGame();
+});
 
 // Methods
 function loadLevel() {
@@ -197,7 +202,7 @@ function onSort(e) {
 			"bottom-ui";
   	padding: var(--app-padding);
 		width: 100%;
-		height: 100%;
+  	height: calc(100 * var(--vh, 1vh));
 	}
 
 	.top-ui {
