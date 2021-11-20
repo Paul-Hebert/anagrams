@@ -8,6 +8,7 @@
   --animation-speed: 0.15s;
   --color-background: hsl(270, 10%, 85%);
   --color-white: hsl(270, 10%, 97%);
+  --color-subdued: hsl(270, 5%, 42%);
   --color-accent: hsl(270, 23%, 42%);
   --color-glow: hsla(270, 100%, 50%, 0.1);
   --color-offset: hsl(270, 17%, 93%);

@@ -2,6 +2,7 @@
 import PossibleWords from './components/PossibleWords.svelte';
 import Hint from './components/Hint.svelte';
 import Anagram from './components/Anagram.svelte';
+import Stat from './components/Stat.svelte';
 import { pickAnagram } from "./js/pick-anagram.js";
 import { randomItemFromArray } from "./js/utils.js";
 
@@ -110,13 +111,15 @@ function onSort(e) {
 </script>
 
 <main>
-	<div class="level-points">
-		<div>Level <b>{level}</b></div>
-		<div><b>{points}</b> Points</div>
-	</div>
+	<div class="top-ui">
+		<div class="level-points">
+			<Stat label="Level" value={level} />
+			<Stat label="Points" value={points} />
+		</div>
 
-	<div class="possible-words">
-		<PossibleWords {possibleWords} {wordsFound}/>
+		<div class="possible-words">
+			<PossibleWords {possibleWords} {wordsFound}/>
+		</div>
 	</div>
 
 	<div class="hint">
@@ -125,7 +128,7 @@ function onSort(e) {
 		{/if}
 	</div>
 
-	<div class="anagram">
+	<div class="jumble">
 		<Anagram {jumble} {success} {failure} bind:this={anagramContainer} on:sort={onSort} />
 	</div>
 
@@ -153,21 +156,23 @@ function onSort(e) {
 		{/if}
 	</div>
 	
-	<div class="hint-count">
- 		{#if hints > 0}
+	<div class="bottom-ui">
+		<div class="hint-count">
+			<Stat label="Hints" value={hints} />
+		</div>
+
+		{#if hints > 0}
 			<button
 				class="button button--inline"
 				on:click={useHint}
 			>
-				Use Hint
+				Use a Hint
 			</button>
 		{/if}
 
-		<p><b>{hints}</b> hints available</p>
-	</div>
-
-	<div class="moves-left">
-		<p><b>{movesLeft}</b> moves left</p>
+		<div class="moves-left">
+			<Stat label="Moves" value={movesLeft} />
+		</div>
 	</div>
 </main>
 
@@ -175,21 +180,30 @@ function onSort(e) {
 	main {
 		display: grid;
 		gap: 1vw;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: 1fr 1fr var(--letter-size) 1fr 1fr;
 		grid-template-areas:
-			"level-points  possible-words"
-			"hint          hint"
-			"anagram       anagram"
-			"status        status"
-			"action        action"
-			"moves-left    hint-count";
+			"top-ui"
+			"hint"
+			"jumble"
+			"status"
+			"action"
+			"bottom-ui";
 		width: 100%;
 		height: 100%;
 	}
 
+	.top-ui {
+		grid-area: top-ui;
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.level-points {
-		grid-area: level-points;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: start;
+		gap: 0.5em;
 	}
 
 	.hint {
@@ -205,10 +219,31 @@ function onSort(e) {
 		align-items: flex-end;
 	}
 
-	.anagram {
+	.jumble {
 		display: grid;
 		place-items: center;
-		grid-area: anagram;
+		grid-area: jumble;
+	}
+
+	.bottom-ui {
+		grid-area: bottom-ui;
+		align-self: end;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.action {
+		grid-area: action;
+		display: flex;
+		justify-content: center;
+		align-items: start;
+	}
+	.status {
+		grid-area: status;
+		display: flex;
+		justify-content: center;
+		align-items: start;
 	}
 
 	.hint-count {
@@ -217,20 +252,6 @@ function onSort(e) {
 		flex-direction: column;
 		justify-content: flex-end;
 		align-items: flex-end;
-	}
-
-	.status {
-		grid-area: status;
-		display: flex;
-		justify-content: center;
-		align-items: start;
-	}
-
-	.action {
-		grid-area: action;
-		display: flex;
-		justify-content: center;
-		align-items: start;
 	}
 
 	.moves-left {
