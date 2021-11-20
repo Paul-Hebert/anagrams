@@ -36,7 +36,7 @@ function loadLevel() {
 	level++;
 	wordsFound = [];
 	hint = null;
-	status = null;
+	status = level === 1 ? 'Rearrange the letters to spell words.' : null;
 	failure = false;
 	success = false;
 
