@@ -163,7 +163,7 @@ function onSort(e) {
 
 		{#if hints > 0}
 			<button
-				class="button button--inline"
+				class="button button--small"
 				on:click={useHint}
 			>
 				Use a Hint
@@ -182,7 +182,7 @@ function onSort(e) {
 		gap: 1vw;
 		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: 
-			auto
+			minmax(0, 3fr) 
 			minmax(0, 2fr) 
 			minmax(0, 2fr) 
 			minmax(0, 1fr) 
@@ -201,6 +201,7 @@ function onSort(e) {
 	}
 
 	.top-ui {
+		align-self: start;
 		grid-area: top-ui;
 		display: flex;
 		justify-content: space-between;
@@ -227,31 +228,35 @@ function onSort(e) {
 	}
 
 	.jumble {
+		align-self: center;
 		display: grid;
 		place-items: center;
 		grid-area: jumble;
 	}
-
-	.bottom-ui {
-		grid-area: bottom-ui;
-		align-self: end;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.action {
-		grid-area: action;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+	
 	.status {
 		grid-area: status;
 		display: flex;
 		text-align: center;
 		justify-content: center;
 		align-items: start;
+	}
+
+	.action {
+		align-self: center;
+		grid-area: action;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.bottom-ui {
+		align-self: end;
+		grid-area: bottom-ui;
+		align-self: end;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	.hint-count {
