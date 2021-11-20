@@ -181,7 +181,13 @@ function onSort(e) {
 		display: grid;
 		gap: 1vw;
 		grid-template-columns: minmax(0, 1fr);
-		grid-template-rows: 1fr 1fr var(--letter-size) 1fr 1fr;
+		grid-template-rows: 
+			auto
+			minmax(0, 2fr) 
+			minmax(0, 2fr) 
+			minmax(0, 1fr) 
+			minmax(0, 1fr) 
+			minmax(0, 1fr);
 		grid-template-areas:
 			"top-ui"
 			"hint"
@@ -189,6 +195,7 @@ function onSort(e) {
 			"status"
 			"action"
 			"bottom-ui";
+  	padding: var(--app-padding);
 		width: 100%;
 		height: 100%;
 	}
@@ -237,11 +244,12 @@ function onSort(e) {
 		grid-area: action;
 		display: flex;
 		justify-content: center;
-		align-items: start;
+		align-items: center;
 	}
 	.status {
 		grid-area: status;
 		display: flex;
+		text-align: center;
 		justify-content: center;
 		align-items: start;
 	}
