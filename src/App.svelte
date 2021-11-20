@@ -84,9 +84,9 @@ function onSort(e) {
 		// TODO: This isn't working
 		if(match === hint) {
 			hint = null;
-			status = `You found the hint: ${word}`;
+			status = `You found the hint: &ldquo;${word}&rdquo;`;
 		} else {
-			status = `You found a word: ${word}`
+			status = `You found a word: &ldquo;${word}&rdquo;`
 		}
 		
 		if (wordsFound.length === possibleWords.length) {
@@ -182,7 +182,7 @@ function onSort(e) {
 		gap: 1vw;
 		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: 
-			minmax(0, 3fr) 
+			auto
 			minmax(0, 2fr) 
 			minmax(0, 2fr) 
 			minmax(0, 1fr) 
@@ -243,11 +243,10 @@ function onSort(e) {
 	}
 
 	.action {
-		align-self: center;
+		align-self: start;
 		grid-area: action;
 		display: flex;
 		justify-content: center;
-		align-items: center;
 	}
 
 	.bottom-ui {
