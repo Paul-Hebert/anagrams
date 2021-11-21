@@ -168,7 +168,7 @@ function onSort(e) {
 			<Stat label="Hints" value={hints} />
 		</div>
 
-		{#if hints > 0}
+		{#if hints > 0 && wordsFound.length < possibleWords.length}
 			<button
 				class="button button--small"
 				on:click={useHint}
