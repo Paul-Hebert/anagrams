@@ -4,3 +4,5 @@
 .DS_Store
 /generator/old-sets
 /generator/intermediary-steps
+
+.svelte-kit/
