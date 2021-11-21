@@ -27,5 +27,4 @@ This game is a work-in-progress.
 ### Bugs
 
 - Starting jumble is sometimes a match
-- Finding a hint word doesn't hide the hint
 - Responsive font sizing is not working correctly

@@ -17,6 +17,7 @@ let possibleWords = [];
 let jumble = '';
 let key = '';
 let lastWord = '';
+let hintWord = null;
 let hint = null;
 let jumblesUsed = [];
 let status = null;
@@ -40,6 +41,7 @@ onMount(async () => {
 function loadLevel() {
 	level++;
 	wordsFound = [];
+	hintWord = null;
 	hint = null;
 	status = level === 1 ? 'Rearrange the letters to spell words.' : null;
 	failure = false;
@@ -61,7 +63,7 @@ function newGame() {
 
 function useHint() {
 	hints--;
-	const hintWord = randomItemFromArray(missingWords());
+	hintWord = randomItemFromArray(missingWords());
 	hint = randomItemFromArray(hintWord.meanings);
 	console.log(hint);
 }
@@ -86,8 +88,8 @@ function onSort(e) {
     wordsFound = [...wordsFound, match];
 		success = true;
 
-		// TODO: This isn't working
-		if(match === hint) {
+		if(match === hintWord) {
+			hintWord = null;
 			hint = null;
 			status = `You found the hint: &ldquo;${word}&rdquo;`;
 		} else {
