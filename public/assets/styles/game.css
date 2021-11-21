@@ -5,3 +5,13 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+}
+
+.anagram-container .letter-inner {
+  cursor: grab;
+}

@@ -6,16 +6,5 @@
 main {
   max-width: 40em;
   margin: 0 auto;
-  display: grid;
-  place-items: center;
-  gap: 1em;
   padding: var(--app-padding);
-}
-
-.instructions {
-  margin-top: 1em;
-}
-
-.instructions * + * {
-  margin-top: 0.5em;
 }
