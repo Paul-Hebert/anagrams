@@ -13,11 +13,44 @@
       rel="stylesheet"
     />
 
+    <link rel="stylesheet" href="/assets/styles/landing.css" />
     <link rel="stylesheet" href="/assets/styles/global.css" />
-    <link rel="stylesheet" href="/build/bundle.css" />
-
-    <script defer src="/build/bundle.js"></script>
+    <link rel="stylesheet" href="/assets/styles/button.css" />
   </head>
 
-  <body></body>
+  <body>
+    <main>
+      <h1 aria-label="Jumbled" class="anagram-container" style="--count: 7">
+        <span class="letter"><span class="letter-inner"> J </span></span>
+        <span class="letter"><span class="letter-inner"> U </span></span>
+        <span class="letter"><span class="letter-inner"> M </span></span>
+        <span class="letter"><span class="letter-inner"> B </span></span>
+        <span class="letter"><span class="letter-inner"> L </span></span>
+        <span class="letter"><span class="letter-inner"> E </span></span>
+        <span class="letter"><span class="letter-inner"> D </span></span>
+      </h1>
+
+      <p class="subtitle">
+        <em>noun,</em>
+        a game where you rearrange jumbled letters to find words.
+      </p>
+
+      <div class="instructions">
+        <p>The rules are simple, but the words are hard:</p>
+
+        <ol>
+          <li>Drag and drop the jumbled letters to find words.</li>
+          <li>You lose when you run out of moves.</li>
+          <li>Every time you find a new word you get 3 more moves.</li>
+          <li>Once you find a word you can proceed to the next jumble.</li>
+          <li>If you find all the words in a jumble you will unlock a hint.</li>
+          <li>Hints can be used when you're stuck to help find words.</li>
+          <li>The jumbles get harder the further you go.</li>
+          <li>Good luck!</li>
+        </ol>
+      </div>
+
+      <a class="button" href="/game"> Play </a>
+    </main>
+  </body>
 </html>

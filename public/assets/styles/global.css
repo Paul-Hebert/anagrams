@@ -30,14 +30,6 @@ html {
   font-size: clamp(16px, calc(16px + 1vw), 24px);
 }
 
-html,
-body {
-  height: calc(100 * var(--vh, 1vh));
-
-  display: flex;
-  flex-direction: column;
-}
-
 body {
   background-color: var(--color-background);
   margin: 0;
@@ -131,42 +123,3 @@ body {
     box-shadow: 0 3px 3px 1px hsla(0, 0%, 0%, 0.1);
   }
 }
-
-.button-wrapper {
-  display: grid;
-  place-items: center;
-}
-
-.button {
-  appearance: none;
-  background-color: var(--color-accent);
-  border: none;
-  color: var(--color-white);
-  cursor: pointer;
-  padding: 0.5em 1.5em;
-  font-family: inherit;
-  font-size: 1.2rem;
-  border-radius: 99rem;
-  transition-property: filter, transform, box-shadow;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-out;
-  transform: scale(0.95);
-}
-
-.button:hover {
-  filter: brightness(110%) saturate(110%);
-  transform: scale(1) translateY(-0.05em);
-  box-shadow: 0 3px 3px 1px hsla(0, 0%, 0%, 0.1);
-}
-
-.button:active {
-  transform: scale(0.9);
-  filter: brightness(90%) saturate(90%);
-  box-shadow: none;
-}
-
-.button--small {
-  font-size: 1rem;
-}
-
-/* TODO: Focus styles */
