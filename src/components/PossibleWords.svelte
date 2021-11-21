@@ -24,7 +24,7 @@
     list-style: none;
     padding: 0;
   }
-  
+
   .possible-word {
     display: flex;
     --letter-size: 1.5rem;
@@ -32,7 +32,7 @@
   }
 
   .possible-word .letter {
-    background-color: var(--color-offset);
+    background-color: var(--color-offset-light);
   }
 
   .possible-word .letter-inner {

@@ -8,7 +8,8 @@
   --color-subdued: hsl(270, 5%, 42%);
   --color-accent: hsl(270, 23%, 42%);
   --color-glow: hsla(270, 100%, 50%, 0.1);
-  --color-offset: hsl(270, 17%, 93%);
+  --color-offset-light: hsl(270, 17%, 93%);
+  --color-offset-dark: hsl(270, 24%, 77%);
   --app-padding: 3vw;
   --letter-radius: 0.1em;
 }
