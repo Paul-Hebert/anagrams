@@ -28,9 +28,6 @@ const missingWords = () => {
 	return possibleWords.filter(word => !wordsFound.includes(word));
 }
 
-// UI
-let anagramContainer;
-
 onMount(async () => {
 	initVHCalculator();
 
@@ -65,7 +62,6 @@ function useHint() {
 	hints--;
 	hintWord = randomItemFromArray(missingWords());
 	hint = randomItemFromArray(hintWord.meanings);
-	console.log(hint);
 }
 
 function onSort(e) {
@@ -136,7 +132,7 @@ function onSort(e) {
 	</div>
 
 	<div class="jumble">
-		<Anagram {jumble} {success} {failure} bind:this={anagramContainer} on:sort={onSort} />
+		<Anagram {jumble} {success} {failure} on:sort={onSort} />
 	</div>
 
 	<div class="status">
