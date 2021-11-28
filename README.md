@@ -8,6 +8,7 @@ This game is a work-in-progress.
 
 ### Remaining Tasks
 
+- Add acknowledgements for open source data
 - Keyboard support for drag+drop
 - Screen reader aria live announcements
 - Improved hints system (don't reuse hints, show multiple hints at once)
@@ -28,3 +29,9 @@ This game is a work-in-progress.
 
 - Starting jumble is sometimes a match
 - Responsive font sizing is not working correctly
+
+### Data sources:
+
+- [Wordset Dictionary](https://github.com/wordset/wordset-dictionary/tree/master/data)
+- [4000 most common words](http://www.rupert.id.au/resources/4000-most-common-english-words-csv.csv)
+- [Plural Nouns](https://github.com/djstrong/nouns-with-plurals/blob/master/noun.csv)
