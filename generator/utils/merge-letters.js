@@ -6,10 +6,7 @@ module.exports = () => {
   let mergedLetters = {};
 
   alphabet.split("").forEach((letter) => {
-    const data = fs.readFileSync(
-      `./generator/wordset-data/${letter}.json`,
-      "utf8"
-    );
+    const data = fs.readFileSync(`./generator/data/${letter}.json`, "utf8");
 
     mergedLetters = { ...mergedLetters, ...JSON.parse(data) };
   });

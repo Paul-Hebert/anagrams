@@ -71,7 +71,7 @@ console.log(
 console.log(`Filtering anagrams by checking they contain common words.`);
 
 const commonWords = JSON.parse(
-  fs.readFileSync(`./generator/wordset-data/common-words.json`, "utf8")
+  fs.readFileSync(`./generator/data/common-words.json`, "utf8")
 );
 
 const topAnagrams = Object.keys(filteredAnagrams)
