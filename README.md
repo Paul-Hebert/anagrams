@@ -10,6 +10,8 @@ This game is a work-in-progress.
 
 - Add acknowledgements for open source data
 - Keyboard support for drag+drop
+  - https://www.smashingmagazine.com/2018/01/dragon-drop-accessible-list-reordering/
+  - https://medium.com/salesforce-ux/4-major-patterns-for-accessible-drag-and-drop-1d43f64ebf09
 - Screen reader aria live announcements
 - Improved hints system (don't reuse hints, show multiple hints at once)
 - Improved success/failure effects
