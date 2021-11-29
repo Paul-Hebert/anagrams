@@ -2,7 +2,8 @@ const fs = require("fs");
 const mergeLetters = require("./utils/merge-letters.js");
 const addPlurals = require("./utils/add-plurals.js");
 const findAnagrams = require("./utils/find-anagrams.js");
-require( 'console-group' ).install();
+const addConjugatedVerbs = require("./utils/add-conjugated-verbs.js");
+require("console-group").install();
 
 /**
  * Settings
@@ -42,7 +43,28 @@ fs.writeFileSync(
 );
 
 const wordsWithPluralsLength = Object.keys(wordsWithPlurals).length;
-console.log(`${wordsWithPluralsLength} words written to all-words-with-plurals.json`);
+console.log(
+  `${wordsWithPluralsLength} words written to all-words-with-plurals.json`
+);
+console.groupEnd();
+
+/**
+ * Add conjugated verbs
+ */
+console.group(`Adding conjugated verbs.`);
+
+const wordsWithConjugations = addConjugatedVerbs(dictionary);
+
+fs.writeFileSync(
+  "./generator/intermediary-steps/all-words-with-conjugations.json",
+  JSON.stringify(wordsWithPlurals, null, 2),
+  "utf8"
+);
+
+const wordsWithConjugationsLength = Object.keys(wordsWithConjugations).length;
+console.log(
+  `${wordsWithConjugationsLength} words written to all-words-with-conjugations.json`
+);
 console.groupEnd();
 
 /**
@@ -50,7 +72,7 @@ console.groupEnd();
  */
 console.group(`Finding anagrams.`);
 
-const anagrams = findAnagrams(wordsWithPlurals, minLength);
+const anagrams = findAnagrams(wordsWithConjugations, minLength);
 
 fs.writeFileSync(
   "./generator/intermediary-steps/anagrams.json",

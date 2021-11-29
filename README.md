@@ -35,3 +35,4 @@ This game is a work-in-progress.
 - [Wordset Dictionary](https://github.com/wordset/wordset-dictionary/tree/master/data)
 - [4000 most common words](http://www.rupert.id.au/resources/4000-most-common-english-words-csv.csv)
 - [Plural Nouns](https://github.com/djstrong/nouns-with-plurals/blob/master/noun.csv)
+- [Conjugated Verbs](https://github.com/Drulac/English-Verbs-Conjugates/blob/master/verbs-conjugations.json)
