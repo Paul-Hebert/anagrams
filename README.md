@@ -16,19 +16,18 @@ This game is a work-in-progress.
 - Improved game rules and game play
 - Performance improvements (lazy load jumbles)
 - PWA features (and getting in the app stores)
-- Logo/icons
-- Real Domain
-- Finalized design and type choices
+- Branding
+  - New Name
+  - Logo/icons
+  - Real Domain
 - Consistent CSS organization
 - Home Screen
 - Improve UI grammar (singular/plural, including "and" in lists of words)
 - Remove slurs and other offensive words from word set
-- Plurals!
 
 ### Bugs
 
 - Starting jumble is sometimes a match
-- Responsive font sizing is not working correctly
 
 ### Data sources:
 
