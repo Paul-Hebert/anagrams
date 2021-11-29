@@ -64,9 +64,7 @@ function useHint() {
 	hint = randomItemFromArray(hintWord.meanings);
 }
 
-function onSort(e) {
-  const {word} = e.detail;
-	
+function checkForMatch(word) {	
 	if(word === lastWord) return;
 	lastWord = word;
 
@@ -79,37 +77,45 @@ function onSort(e) {
 		status = 'You already found this word!';
 		return;
 	} else if (match) {
-    points++;
-		movesLeft += 3;
-    wordsFound = [...wordsFound, match];
-		success = true;
-
-		if(match === hintWord) {
-			hintWord = null;
-			hint = null;
-			status = `You found the hint: &ldquo;${word}&rdquo;`;
-		} else {
-			status = `You found a word: &ldquo;${word}&rdquo;`
-		}
-		
-		if (wordsFound.length === possibleWords.length) {
-			status = "You found all the words and unlocked a hint!";
-			hints++;
-			return;
-		}
-
-		setTimeout(() => { success = false }, 500);
-		return;
+    wordFound(match, match === hintWord);
   } 
 	
 	if (movesLeft === 0) {
-		const missedWords = missingWords().map(w => `&ldquo;${w.name}&rdquo;`).join(', ');
-	  status = `You lose! You missed ${missedWords}.`;
-		failure = true;
-		return;
+		lose();
   }
 
 	status = null;
+}
+
+function wordFound(word, isMatch) {
+	points++;
+	movesLeft += 3;
+	wordsFound = [...wordsFound, word];
+	success = true;
+
+	if(isMatch) {
+		hintWord = null;
+		hint = null;
+		status = `You found the hint: &ldquo;${word}&rdquo;`;
+	} else {
+		status = `You found a word: &ldquo;${word}&rdquo;`
+	}
+	
+	if (wordsFound.length === possibleWords.length) {
+		status = "You found all the words and unlocked a hint!";
+		hints++;
+		return;
+	}
+
+	setTimeout(() => { success = false }, 500);
+	return;
+}
+
+function lose() {
+	const missedWords = missingWords().map(w => `&ldquo;${w.name}&rdquo;`).join(', ');
+	status = `You lose! You missed ${missedWords}.`;
+	failure = true;
+	return;
 }
 </script>
 
@@ -132,7 +138,7 @@ function onSort(e) {
 	</div>
 
 	<div class="jumble">
-		<Anagram {jumble} {success} {failure} on:sort={onSort} />
+		<Anagram {jumble} {success} {failure} on:sort={(e) => { checkForMatch(e.detail.word) }} />
 	</div>
 
 	<div class="status">

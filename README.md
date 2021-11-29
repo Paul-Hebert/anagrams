@@ -30,6 +30,7 @@ This game is a work-in-progress.
 ### Bugs
 
 - Starting jumble is sometimes a match
+- Grid layout isn't working well. Switch to flex and ditch vh calculator
 
 ### Data sources:
 
