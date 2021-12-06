@@ -21,12 +21,3 @@ export function shuffle(array) {
 
   return array;
 }
-
-export function initVHCalculator() {
-  const observer = new ResizeObserver(() => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  });
-
-  observer.observe(document.body);
-}

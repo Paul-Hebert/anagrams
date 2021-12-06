@@ -5,7 +5,7 @@ import Anagram from './components/Anagram.svelte';
 import Stat from './components/Stat.svelte';
 import { pickAnagram } from "./js/pick-anagram.js";
 import { onMount } from 'svelte';
-import { randomItemFromArray, initVHCalculator } from "./js/utils.js";
+import { randomItemFromArray } from "./js/utils.js";
 
 // Game state
 let level = 0;
@@ -29,8 +29,6 @@ const missingWords = () => {
 }
 
 onMount(async () => {
-	initVHCalculator();
-
 	newGame();
 });
 
@@ -190,31 +188,19 @@ function lose() {
 
 <style>
 	main {
-		display: grid;
-		gap: 1vw;
-		grid-template-columns: minmax(0, 1fr);
-		grid-template-rows: 
-			auto
-			minmax(0, 2fr) 
-			minmax(0, 2fr) 
-			minmax(0, 1fr) 
-			minmax(0, 1fr) 
-			minmax(0, 1fr);
-		grid-template-areas:
-			"top-ui"
-			"hint"
-			"jumble"
-			"status"
-			"action"
-			"bottom-ui";
+		justify-content: space-between;
+		display: flex;
+		flex-direction: column;
   	padding: var(--app-padding);
 		width: 100%;
-  	height: calc(100 * var(--vh, 1vh));
+  	height: 100%;
+	}
+
+	main > * + * {
+		margin-top: 1em;
 	}
 
 	.top-ui {
-		align-self: start;
-		grid-area: top-ui;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -227,47 +213,40 @@ function lose() {
 	}
 
 	.possible-words {
-		grid-area: possible-words;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
 	}
 
 	.hint {
-		grid-area: hint;
 		display: grid;
 		place-items: center;
+		min-height: 5em;
 	}
 
 	.jumble {
-		align-self: center;
 		display: grid;
 		place-items: center;
-		grid-area: jumble;
 	}
 	
 	.status {
-		grid-area: status;
 		display: flex;
 		text-align: center;
 		justify-content: center;
 		align-items: start;
+		min-height: 1.5em;
 	}
 
 	.action {
-		align-self: start;
-		grid-area: action;
 		display: flex;
 		justify-content: center;
 	}
 
 	.bottom-ui {
-		align-self: end;
-		grid-area: bottom-ui;
-		align-self: end;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin-top: auto;
 	}
 
 	.hint-count {
