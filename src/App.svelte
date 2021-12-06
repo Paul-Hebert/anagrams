@@ -78,13 +78,16 @@ function checkForMatch(word) {
 		return;
 	} else if (match) {
     wordFound(match, match === hintWord);
+		return;
   } 
 	
 	if (movesLeft === 0) {
 		lose();
+		return;
   }
 
 	status = null;
+	return;
 }
 
 function wordFound(word, isMatch) {
@@ -96,9 +99,9 @@ function wordFound(word, isMatch) {
 	if(isMatch) {
 		hintWord = null;
 		hint = null;
-		status = `You found the hint: &ldquo;${word}&rdquo;`;
+		status = `You found the hint: &ldquo;${word.name}&rdquo;`;
 	} else {
-		status = `You found a word: &ldquo;${word}&rdquo;`
+		status = `You found a word: &ldquo;${word.name}&rdquo;`
 	}
 	
 	if (wordsFound.length === possibleWords.length) {
