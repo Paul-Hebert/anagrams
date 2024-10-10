@@ -8,3 +8,7 @@ main {
   margin: 0 auto;
   padding: var(--app-padding);
 }
+
+.title {
+  gap: 0.125em;
+}
